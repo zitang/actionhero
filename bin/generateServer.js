@@ -1,15 +1,19 @@
-exports['generateServer'] = function(binary, next){
+#!/usr/bin/env node
+var fs = require('fs');
+var path = require('path');
+var argv = require('optimist').argv;
+var bin = require(__dirname + "/include/bin.js").bin;
 
-  if(binary.argv.name == null){ binary.hardError("name is a required input"); }
+  if(argv.name == null){ bin.hardError("name is a required input"); }
 
   var templateLines = [];
-  templateLines.push('var ' + binary.argv['name'] + ' = function(api, options, next){');
+  templateLines.push('var ' + argv['name'] + ' = function(api, options, next){');
   templateLines.push('');
   templateLines.push('  //////////');
   templateLines.push('  // INIT //');
   templateLines.push('  //////////');
   templateLines.push('');
-  templateLines.push('  var type = "' + binary.argv['name'] + '"');
+  templateLines.push('  var type = "' + argv['name'] + '"');
   templateLines.push('  var attributes = {');
   templateLines.push('    canChat: true');
   templateLines.push('    logConnections: true,');
@@ -51,16 +55,12 @@ exports['generateServer'] = function(binary, next){
   templateLines.push('');
   templateLines.push('/////////////////////////////////////////////////////////////////////');
   templateLines.push('// exports');
-  templateLines.push('exports.' + binary.argv['name'] + ' = ' + binary.argv['name'] + ';');
+  templateLines.push('exports.' + argv['name'] + ' = ' + argv['name'] + ';');
 
 
   var data = "";
   for(var i in templateLines){
     data += templateLines[i] + "\n";
   }
-  var partialPath = "/servers/" + binary.argv['name'] + ".js";
-  binary.utils.create_file_safely(binary.paths.project_root + partialPath, data);
-
-  next();
-
-}
+  var partialPath = "/servers/" + argv['name'] + ".js";
+  bin.utils.create_file_safely(binary.projectRoot + partialPath, data);

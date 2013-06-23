@@ -1,5 +1,11 @@
 # Action Hero API Versions
 
+## Version 6.1.1
+
+** npm run-script **
+
+- Bring back the npm script-aliases for actionHero
+
 ## Version 6.1.0
 
 ** API Versions **
