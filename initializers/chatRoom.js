@@ -10,7 +10,7 @@ var chatRoom = function(api, next){
 
   api.chatRoom._start = function(api, next){
     api.chatRoom.subscription = api.faye.client.subscribe(api.chatRoom.fayeChannel, function(message) {
-      api.chatRoom.incommingMessage(message);
+      api.chatRoom.incomingMessage(message);
     });
     if(api.config.general.startingChatRooms != null){
       for(var room in api.config.general.startingChatRooms){
@@ -57,7 +57,7 @@ var chatRoom = function(api, next){
     }
   }
 
-  api.chatRoom.incommingMessage = function(message){
+  api.chatRoom.incomingMessage = function(message){
     api.stats.increment("chatRoom:messagesRecieved");
     var messagePayload = {message: message.message, room: message.connection.room, from: message.connection.id, context: "user", sentAt: message.sentAt };
     for(var i in api.connections.connections){

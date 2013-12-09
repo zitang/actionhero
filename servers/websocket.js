@@ -111,7 +111,7 @@ var websocket = function(api, options, next){
         var uuid = message.channel.split("/")[4];
         var connection = server.connectionsMap[uuid];
         if(connection != null){
-          incommingMessage(connection, message);
+          incomingMessage(connection, message);
         }else{
           api.faye.client.publish(rebroadcastChannel, {
             serverId: api.id,
@@ -174,7 +174,7 @@ var websocket = function(api, options, next){
     }, 50); // should be enough time for the connection to establish?
   }
 
-  var incommingMessage = function(connection, message){
+  var incomingMessage = function(connection, message){
     if(connection != null){
       var data = message.data;
       var verb = data.event;
