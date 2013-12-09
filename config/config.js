@@ -102,7 +102,7 @@ config.faye = {
   mount: "/faye",          // faye's URL mountpoint.  Be sure to not overlap with an action or route
   timeout: 45,             // idle timeout for clients
   ping: null,              // should clients ping the server?
-  redis: config.redis, // What redis server should we connet to for faye?
+  redis: config.redis,     // What redis server should we connet to for faye?
   namespace: "faye:"       // redis prefix for faye keys
 };
 
@@ -115,7 +115,7 @@ config.tasks = {
   scheduler: false,       // Should this node run a scheduler to promote delayed tasks?
   queues: [],             // what queues should the workers work and how many to spawn? "['*']" is one worker working the * queue; "['high,low']" is one worker woring 2 queues
   timeout: 5000,          // how long to sleep between jobs / scheduler checks
-  redis: config.redis // What redis server should we connet to for tasks / delayed jobs?
+  redis: config.redis     // What redis server should we connet to for tasks / delayed jobs?
 }
 
 /////////////
