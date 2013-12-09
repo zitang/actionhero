@@ -176,11 +176,7 @@ fs.readdirSync(binary.paths.actionHero_root + "/bin/methods/").sort().forEach(fu
 binary.mainAction = binary.argv["_"][0];
 if(binary.mainAction == null){ binary.mainAction = "start"; }
 
-if(binary.argv['isDaemon'] == 'true'){
-  binary.isDaemon = true;
-}else{
-  binary.isDaemon = false;
-}
+binary.isDaemon = (binary.argv['isDaemon'] == 'true');
 
 if(binary.actions[binary.mainAction] != null){
   if(binary.argv['daemon'] != null){
