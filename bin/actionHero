@@ -96,7 +96,7 @@ binary.utils = {
       binary.log(" - directory `"+path.normalize(dir)+"` already exists, skipping");
     }else{
       binary.log(" - creating directory `"+path.normalize(dir)+"`");
-      fs.mkdirSync(dir , 0766);
+      fs.mkdirSync(dir , '0766');
     }
   },
   create_file_safely: function(file, data){
@@ -110,7 +110,7 @@ binary.utils = {
   hashLength: function(obj) {
     var size = 0, key;
     for (key in obj) {
-        if (obj.hasOwnProperty(key)) size++;
+        if (obj.hasOwnProperty(key)){ size++; }
     }
     return size;
   }
@@ -149,9 +149,9 @@ if(process.env.actionHero_root != null){
 }
 
 try{
-  binary.paths.confg = require(binary.paths.project_root + "/config/config.js").confg.general.paths
+  binary.paths.config = require(binary.paths.project_root + "/config/config.js").config.general.paths
 }catch(e){
-  binary.paths.confg = { 
+  binary.paths.config = { 
     "action":      binary.paths.project_root + "/actions",
     "task":        binary.paths.project_root + "/tasks",
     "public":      binary.paths.project_root + "/public",
