@@ -165,7 +165,26 @@ var initialize = function(api, options, next){
       responseHeaders.push(['Content-Type', 'application/json; charset=utf-8']);
 
       for(i in api.config.servers.web.httpHeaders){
-        responseHeaders.push([i, api.config.servers.web.httpHeaders[i]]);
+        if (i === 'Access-Control-Allow-Origin') {
+          var hosts = api.config.servers.web.httpHeaders[i].split(' ');
+          var h;
+          var toSet;
+
+          for (h in hosts) {
+            if (h.indexOf(req.headers.host) > -1) {
+              toSet = h;
+              break;
+            }
+          }
+
+          if (toSet) {
+            responseHeaders.push([i, toSet]);
+          } else {
+            responseHeaders.push([i, api.config.servers.web.httpHeaders[i]]);
+          }
+        } else {
+          responseHeaders.push([i, api.config.servers.web.httpHeaders[i]]);
+        }
       }
 
       var remoteIP = req.connection.remoteAddress;
