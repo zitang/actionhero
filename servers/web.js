@@ -170,17 +170,19 @@ var initialize = function(api, options, next){
           var h;
           var toSet;
 
-          for (h in hosts) {
-            if (h.indexOf(req.headers.host) > -1) {
-              toSet = h;
-              break;
+          if (req.headers.referer) {
+            for (h in hosts) {
+              if (req.headers.referer.indexOf(hosts[h]) > -1) {
+                toSet = hosts[h];
+                break;
+              }
             }
           }
 
           if (toSet) {
             responseHeaders.push([i, toSet]);
           } else {
-            responseHeaders.push([i, api.config.servers.web.httpHeaders[i]]);
+            responseHeaders.push([i, hosts[0]]);
           }
         } else {
           responseHeaders.push([i, api.config.servers.web.httpHeaders[i]]);
